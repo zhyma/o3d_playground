@@ -36,16 +36,14 @@ if __name__ == "__main__":
     pcd = o3d.geometry.PointCloud()
     pcd.points = o3d.utility.Vector3dVector(np.asarray(temp_cloud))
 
-    downpcd = pcd.voxel_down_sample(voxel_size=0.01)
+    downpcd = pcd.voxel_down_sample(voxel_size=0.005)
 
     # o3d.visualization.draw_geometries([downpcd])
 
     with o3d.utility.VerbosityContextManager(
             o3d.utility.VerbosityLevel.Debug) as cm:
         labels = np.array(
-            downpcd.cluster_dbscan(eps=0.02, min_points=10, print_progress=True))
-
-
+            downpcd.cluster_dbscan(eps=0.05, min_points=10, print_progress=True))
 
     max_label = labels.max()
     print(f"point cloud has {max_label + 1} clusters")
